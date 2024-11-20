@@ -37,10 +37,16 @@ TURN_MAX_VALUE = 160
 DISTANCE_MIN_VALUE = 30
 DISTANCE_MAX_VALUE = 120
 
-PWM_SCALE = [0.60, 1.00]
+# PWM_SCALE = [0.60, 1.00]
+PWM_SCALE = [0.10, 0.20]
+"""
+1번.
+뱅뱅카트 홈페이지에 카트 예상 속도 8~10 적혀있었어요. 시속 8km~10km라 생각하고 rpm은 15000, 바퀴직경은 25.5cm, 뱅뱅카트 + 사람무게를 50kg이라고 가정했어요.
+이렇게 모터 스펙을 구했습니다.
+그리고 우리 카트 무게를 15kg로 잡고, 카트 최대 속도가 초속 0.5m일 때 pwm비는 얼마인지를 계산했더니 0.2가 나왔어요.
 
-# Initialize the webcam
-cap = cv2.VideoCapture(0)
+-> gpt한테 계속 물어봤는데, 물어볼 때마다 자꾸 다르게 답해서... 모터 돌려보면서 정해야 할 거 같아요...
+"""
 
 # 아두이노와 직렬 통신 연결, /dev/ttyACM0 포트 사용(리눅스 환경에서 사용하는 직렬 포트 경로)
 # 오류 발생시 코드 종료
@@ -49,10 +55,6 @@ try:
 except Exception as e:
     print(f"아두이노 연결 실패: {e}")
     exit(1)
-
-# Initialize yolov8 object detector
-model_path = "/home/soeunan/KART/yolov8n_OD/models/best.onnx"
-yolov8_detector = YOLOv8(model_path, conf_thres=0.5, iou_thres=0.5)
 
 it = util.Iterator(board)
 
@@ -79,6 +81,13 @@ def RangeCalc(In, in_max, in_min, out_max, out_min):
     return mapped_value
 
 it.start()
+
+# Initialize the webcam
+cap = cv2.VideoCapture(0)
+
+# Initialize yolov8 object detector
+model_path = "/home/soeunan/KART/yolov8n_OD/models/best.onnx"
+yolov8_detector = YOLOv8(model_path, conf_thres=0.5, iou_thres=0.5)
 
 while cap.isOpened():
 
