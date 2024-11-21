@@ -3,8 +3,6 @@ from pyfirmata import Arduino, PWM, OUTPUT, util
 import math
 import time
 
-speed = 0.4
-
 class Motor:
     def __init__(self, board, Lpwm_pin, Rpwm_pin, Len_pin, Ren_pin):
         self.Lpwm = board.get_pin(f'd:{Lpwm_pin}:p')
@@ -39,20 +37,117 @@ motor2 = Motor(board, 9, 10, 7, 8)
 
 it.start()
 
-print("앞으로 가")
-motor1.forward(speed)
-motor2.forward(speed)
+# pwm 제어처럼 움직이게 만들어 봤어요.
+print("전진")
+motor1.forward(0.4)
+motor2.forward(0.4)
+time.sleep(3)  # 3초 동안 전진
 
-time.sleep(5)  # 5초 대기
+motor1.forward(0.3)
+motor2.forward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 전진
+
+motor1.forward(0.2)
+motor2.forward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 전진
+
+motor1.forward(0.1)
+motor2.forward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 전진
 
 motor1.stop()
 motor2.stop()
 
-print("뒤로 가")
-motor1.backward(speed)
-motor2.backward(speed)
+print("후진")
+motor1.backward(0.4)
+motor2.backward(0.4)
+time.sleep(3)  # 3초 동안 후진
 
-time.sleep(5)  # 5초 대기
+motor1.backward(0.3)
+motor2.backward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 후진
+
+motor1.backward(0.2)
+motor2.backward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 후진
+
+motor1.backward(0.1)
+motor2.backward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 후진
+
+motor1.stop()
+motor2.stop()
+
+print("좌회전")
+motor1.backward(0.4)
+motor2.forward(0.4)
+time.sleep(3)  # 3초 동안 좌회전
+
+motor1.backward(0.3)
+motor2.forward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 좌회전
+
+motor1.backward(0.2)
+motor2.forward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 좌회전
+
+motor1.backward(0.1)
+motor2.forward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 좌회전
+
+motor1.stop()
+motor2.stop()
+
+print("처음 위치로") # 좌회전 한 시간만큼 우회전해서 처음 위치로 이동
+motor1.forward(0.4)
+motor2.backward(0.4)
+time.sleep(3)  # 3초 동안 우회전
+
+motor1.forward(0.3)
+motor2.backward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 우회전
+
+motor1.forward(0.2)
+motor2.backward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 우회전
+
+motor1.forward(0.1)
+motor2.backward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 우회전
+
+print("우회전")
+motor1.forward(0.4)
+motor2.backward(0.4)
+time.sleep(3)  # 3초 동안 우회전
+
+motor1.forward(0.3)
+motor2.backward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 우회전
+
+motor1.forward(0.2)
+motor2.backward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 우회전
+
+motor1.forward(0.1)
+motor2.backward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 우회전
+
+print("처음 위치로") # 우회전 한 시간만큼 좌회전해서 처음 위치로 이동
+motor1.backward(0.4)
+motor2.forward(0.4)
+time.sleep(3)  # 3초 동안 좌회전
+
+motor1.backward(0.3)
+motor2.forward(0.3)
+time.sleep(0.5)  # 0.5초 동안 0.3의 속도로 좌회전
+
+motor1.backward(0.2)
+motor2.forward(0.2)
+time.sleep(0.5)  # 0.5초 동안 0.2의 속도로 좌회전
+
+motor1.backward(0.1)
+motor2.forward(0.1)
+time.sleep(0.5)  # 0.5초 동안 0.1의 속도로 좌회전
 
 motor1.stop()
 motor2.stop()
