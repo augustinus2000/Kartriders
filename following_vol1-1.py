@@ -37,30 +37,13 @@ TURN_MAX_VALUE = 160
 DISTANCE_MIN_VALUE = 30
 DISTANCE_MAX_VALUE = 120
 
-PWM_SCALE = [0.10, 0.20] # 이 값은 모터 돌아가는 속도 보고 정하기!!!
+PWM_SCALE = [0.10, 0.40] # 최대 속도 40% 출력, 최소 속도 10% 출력
 
-# 아두이노와 직렬 통신 연결, /dev/ttyACM0 포트 사용(리눅스 환경에서 사용하는 직렬 포트 경로)
-# 오류 발생시 코드 종료
-try:
-    board = Arduino('/dev/ttyACM0')
-except Exception as e:
-    print(f"아두이노 연결 실패: {e}")
-    exit(1)
-
+board = Arduino('/dev/ttyACM0')
 it = util.Iterator(board)
 
-motor1_Lpwm = 5
-motor1_Rpwm = 6
-motor1_Len = 2
-motor1_Ren = 4
-
-motor2_Lpwm = 9
-motor2_Rpwm = 10
-motor2_Len = 7
-motor2_Ren = 8
-
-motor1 = Motor(board, motor1_Lpwm, motor1_Rpwm, motor1_Len, motor1_Ren)
-motor2 = Motor(board, motor2_Lpwm, motor2_Rpwm, motor2_Len, motor2_Ren)
+motor1 = Motor(board, 5, 6, 2, 4)
+motor2 = Motor(board, 9, 10, 7, 8)
 
 def RangeCalc(In, in_max, in_min, out_max, out_min):
     # mapped_value = (x_clipped - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
