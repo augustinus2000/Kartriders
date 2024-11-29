@@ -1,6 +1,8 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial BTSerial(12, 13); // 소프트웨어 시리얼 사용 (TX=12, RX=13)
+SoftwareSerial HC_06(12, 13); // 소프트웨어 시리얼 사용
+// 아두이노 RX = 12번, 아두이노 TX = 13번 -->> 블루투스 모듈 TX를 아두이노 12번에, 
+//                                            블루투스 모듈 RX를 아두이노 13번에 넣기
 
 // BTS7960 핀
 const int LPWM1 = 5;  // 왼쪽 PWM 입력 (전진)
@@ -13,9 +15,14 @@ const int RPWM2 = 10; // 오른쪽 PWM 입력 (후진)
 const int LEN2 = 7;   // 왼쪽 모터 활성화
 const int REN2 = 8;   // 오른쪽 모터 활성화
 
+"""
+모터 드라이버의 LEN과 REN 신호는 항상 1에 물려두고 써도 되지만, 
+쓸 때는 1로, 안 쓸 때는 0으로 두면 배터리를 절약할 수 있어요.
+"""
+
 void setup() {
   // 핀 설정
-  pinMode(LPWM1, OUTPUT);
+  pinMode(LPWM1, OUTPUT); // 핀 모드는 OUTPUT로 설정
   pinMode(RPWM1, OUTPUT);
   pinMode(LEN1, OUTPUT);
   pinMode(REN1, OUTPUT);
@@ -26,22 +33,25 @@ void setup() {
   pinMode(REN2, OUTPUT);
 
   // BTS7960 모터 구동부 활성화 핀 초기화
-  digitalWrite(LEN1, LOW);
-  digitalWrite(REN1, LOW);
+  digitalWrite(LEN1, LOW); // 아두이노의 디지털 핀에 HIGH 또는 LOW 값을 설정하기 위해 사용
+  digitalWrite(REN1, LOW); // 보기 편한 거 같아서 0과 1 대신 HIGH와 LOW 사용했습니다.
   digitalWrite(LEN2, LOW);
   digitalWrite(REN2, LOW);
 
   // 시리얼 통신 초기화
-  Serial.begin(9600); // 시리얼 모니터와 통신
-  BTSerial.begin(9600);    // 블루투스 모듈과 통신
+  Serial.begin(9600); // 시리얼 모니터와 통신, 노트북과 아두이노를 usb로 연결해놔야 볼 수 있는데,
+                      // 고장 원인이 파악이 안되어서 usb 연결은 안함. 없어도 되는 코드
+
+  HC_06.begin(9600);    // 블루투스 모듈과 통신
   Serial.println("블루투스 준비!");
 }
 
 void loop() {
-  if (BTSerial.available()) {
-    char command = BTSerial.read();  // 블루투스 데이터 수신
+  if (HC_06.available()) {
+    char command = HC_06.read();  // 블루투스 데이터 수신
     Serial.print("받은 명령: ");  // 디버깅용 출력
-    Serial.println(command);  
+    Serial.println(command);  // print는 그냥 출력, println은 줄 바꿔서 출력
+                              // 어차피 시리얼 모니터 못 써서 없어도 되는 코드.
 
     switch (command) {
       case 'f': // 전진
