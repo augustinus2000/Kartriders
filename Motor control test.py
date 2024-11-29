@@ -4,7 +4,7 @@ import math
 import time
 
 class Motor:
-    def __init__(self, board, Lpwm_pin, Rpwm_pin, Len_pin, Ren_pin):
+    def __init__(self, board, Lpwm_pin, Rpwm_pin):
         self.Lpwm = board.get_pin(f'd:{Lpwm_pin}:p')
         self.Rpwm = board.get_pin(f'd:{Rpwm_pin}:p')
 
