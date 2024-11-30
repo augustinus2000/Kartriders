@@ -46,6 +46,7 @@ def RangeCalc(In, in_max, in_min, out_max, out_min):
     mapped_value = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
     mapped_value = round(mapped_value, 2)
+    mapped_value = max(min(mapped_value, out_max), out_min) # 한번 더 클리핑해서 pwm 범위 못 벗어나게 막음.
     return mapped_value
 
 it.start()
