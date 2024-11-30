@@ -35,7 +35,7 @@ def RangeCalc(In, in_max, in_min, out_max, out_min): # pwm 계산 함수
     x = min(max(In, in_min), in_max)
     mapped_value = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-    mapped_value = mapped_value = max(min(mapped_value, out_max), out_min) # 한번 더 클리핑해서 pwm 범위 못 벗어나게 막음.
+    mapped_value = max(min(mapped_value, out_max), out_min) # 한번 더 클리핑해서 pwm 범위 못 벗어나게 막음.
     return mapped_value
 
 # Initialize the webcam
