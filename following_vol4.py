@@ -6,13 +6,13 @@ import serial # pip install pyserial
 
 # Initialize FPS tracking
 pTime = 0
-TURN_MIN_VALUE = 100
-TURN_MAX_VALUE = 160
+TURN_MIN_VALUE = 200
+TURN_MAX_VALUE = 320
 
 DISTANCE_MIN_VALUE = 30
 DISTANCE_MAX_VALUE = 120
 
-PWM_SCALE = [51, 77] # 아두이노에서는 pwm 제어 0~255 범위를 가진다.
+PWM_SCALE = [102, 127] # 아두이노에서는 pwm 제어 0~255 범위를 가진다.
 # 51은 20%의 출력, 최대 속도를 20%의 출력으로 맞춰놓았다. 이건 카트 속도보고 조정하기!!
 
 # Bluetooth 포트 설정
@@ -106,7 +106,7 @@ def detect_and_track(frame):
             detected = False
 
             for box, class_id in zip(boxes, class_ids):
-                if int(class_id) == 1:  # Check for wheelchair user class
+                if int(class_id) == 0:  # Check for wheelchair user class
                     xmin, ymin, xmax, ymax = map(int, box)
                     detected_bbox = (xmin, ymin, xmax - xmin, ymax - ymin)
 
