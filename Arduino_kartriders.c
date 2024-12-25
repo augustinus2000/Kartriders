@@ -113,14 +113,14 @@ void moveBackward(int speed) {
 // 좌회전
 void turnLeft(int speed) {
   analogWrite(LPWM1, LOW);      // 모터1 전진 속도 없음
-  analogWrite(RPWM1, speed);    // 모터1 후진 속도 설정
+  analogWrite(RPWM1, LOW);      // 모터1 후진 속도 없음
   analogWrite(LPWM2, speed+27); // 모터2 전진 속도 설정
   analogWrite(RPWM2, LOW);      // 모터2 후진 속도 없음
 }
 
 // 우회전
 void turnRight(int speed) {
-  analogWrite(LPWM1, speed);    // 모터1 전진 속도 설정
+  analogWrite(LPWM1, LOW);      // 모터1 전진 속도 없음
   analogWrite(RPWM1, LOW);      // 모터1 후진 속도 없음
   analogWrite(LPWM2, LOW);      // 모터2 전진 속도 없음
   analogWrite(RPWM2, speed+27); // 모터2 후진 속도 설정
